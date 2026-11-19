@@ -1,0 +1,8 @@
+{
+  "name": "catalogo-tools",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "mupdf": "^1.26.4"
+  }
+}

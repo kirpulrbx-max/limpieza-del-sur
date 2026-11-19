@@ -12,6 +12,9 @@
   function save() { try { localStorage.setItem(KEY, JSON.stringify(cart)); } catch {} }
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   const norm = s => String(s).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
+  const money = n => `$${n.toFixed(2)}`;
+  // el precio del catálogo es por la primera presentación (ej. "por paquete de 12 piezas")
+  const lineTotal = l => { const p = byId[l.id]; return p.pr != null && l.unit === units(p)[0] ? p.pr * l.qty : null; };
   const units = p => p.u && p.u.length ? p.u : ["Unidad", "Docena", "Bulto"];
   P.forEach(p => { p._s = norm(`${p.n} ${p.c} ${p.sub || ""} ${p.cat}`); });
 
@@ -22,6 +25,7 @@
     "Hogar, cocina y decoración": ["Hogar", "🏠"],
     "Repostería": ["Repostería", "🧁"],
     "Tecnología": ["Tecnología", "🎧"],
+    "Electricidad": ["Electricidad", "⚡"],
     "Variedades, mascotas y juguetes": ["Variedades", "🧸"],
     "Ferretería, electricidad y plomería": ["Ferretería", "🔧"],
   };
@@ -65,7 +69,7 @@
 
   // ---- Tarjetas ----
   function card(p) {
-    const sub = p.p || (p.b ? `Bulto: ${p.b}` : "");
+    const sub = [p.pr != null && p.c ? `Cód: ${p.c}` : "", p.p || (p.b ? `Bulto: ${p.b}` : "")].filter(Boolean).join(" · ");
     return `<article class="card" data-id="${p.id}">
       <button class="ph" data-zoom aria-label="Ver foto de ${esc(p.n)}">
         <img src="${p.img}" alt="${esc(p.n)}" loading="lazy" decoding="async">
@@ -73,7 +77,7 @@
       </button>
       <div class="info">
         <h3>${esc(p.n)}</h3>
-        ${p.c ? `<span class="code">${esc(p.c)}</span>` : ""}
+        ${p.pr != null ? `<span class="price">${money(p.pr)}</span>` : p.c ? `<span class="code">${esc(p.c)}</span>` : ""}
       </div>
       <div class="sub">${sub ? `<span class="dot">●</span> ${esc(sub)}` : ""}</div>
       <div class="acts">
@@ -146,18 +150,23 @@
     $("#emptyCart").hidden = cart.length > 0;
     $("#orderForm").hidden = cart.length === 0;
     $("#lines").innerHTML = cart.map((l, i) => {
-      const p = byId[l.id];
+      const p = byId[l.id], t = lineTotal(l);
+      const meta = [p.c ? `Cód: ${esc(p.c)}` : "", p.pr != null ? `${money(p.pr)} ${esc((p.p || "c/u").toLowerCase())}` : ""].filter(Boolean).join(" · ");
       return `<li class="line" data-i="${i}">
         <img src="${p.img}" alt="">
-        <div><b>${esc(p.n)}</b>${p.c ? `<span class="meta">Cód: ${esc(p.c)}</span>` : ""}
+        <div><b>${esc(p.n)}</b>${meta ? `<span class="meta">${meta}</span>` : ""}
           <div class="ctl">
             <div class="qty"><button type="button" data-cstep="-1" aria-label="Menos">−</button><input type="number" min="1" value="${l.qty}" data-cqty aria-label="Cantidad"><button type="button" data-cstep="1" aria-label="Más">+</button></div>
             <select class="unit" data-cunit aria-label="Presentación">${units(p).map(u => `<option ${u === l.unit ? "selected" : ""}>${esc(u)}</option>`).join("")}</select>
           </div>
+          ${t != null ? `<span class="sub-total">${money(t)}</span>` : p.pr != null ? `<span class="meta">Precio por ${esc(l.unit.toLowerCase())}: a confirmar</span>` : ""}
         </div>
         <button class="rm" data-rm aria-label="Quitar">×</button>
       </li>`;
     }).join("");
+    const priced = cart.map(lineTotal).filter(t => t != null);
+    $("#total").hidden = !priced.length;
+    $("#total").innerHTML = `<span>Total estimado</span><b>${money(priced.reduce((a, b) => a + b, 0))}</b>${priced.length < cart.length ? "<small>Algunos productos no tienen precio; el vendedor te lo confirma.</small>" : ""}`;
   }
   $("#lines").addEventListener("click", e => {
     const li = e.target.closest(".line"); if (!li) return;
@@ -211,9 +220,10 @@
 
     const v = C.vendedores[+vend.value];
     const items = cart.map((l, i) => {
-      const p = byId[l.id];
-      return `${i + 1}. ${p.n}${p.c ? `\n    Cód: ${p.c}` : ""}\n    Cant: ${l.qty} ${l.unit}`;
+      const p = byId[l.id], t = lineTotal(l);
+      return `${i + 1}. ${p.n}${p.c ? `\n    Cód: ${p.c}` : ""}\n    Cant: ${l.qty} ${l.unit}${t != null ? ` — ${money(t)}` : ""}`;
     });
+    const priced = cart.map(lineTotal).filter(t => t != null);
     const msg = [
       `*NUEVO PEDIDO — ${C.empresa}*`,
       ``,
@@ -224,6 +234,7 @@
       ``,
       `*Productos (${cart.length}):*`,
       ...items,
+      priced.length ? `\n*Total estimado:* ${money(priced.reduce((a, b) => a + b, 0))}${priced.length < cart.length ? " (sin los productos sin precio)" : ""}` : null,
       f.notas.value.trim() ? `\n*Notas:* ${f.notas.value.trim()}` : null,
       ``,
       `Por favor confirmar disponibilidad y precio. ¡Gracias!`,
