@@ -19,9 +19,10 @@ Cada producto en `productos.js` es una línea como:
 Campos opcionales: `"sub"` (categoría), `"p"` (presentación), `"b"` (contenido del bulto), `"u":["Pieza","Bulto"]` (presentaciones que se pueden pedir), `"pr":6.5` (precio en $).
 
 ## Precios
-Solo los productos del catálogo **Davey** (Inversiones Universal de Oriente) llevan precio:
-**precio en ¥ ÷ 6 + 20 %**. El precio es por la presentación del catálogo (ej. "por paquete de 12 piezas").
-Los demás catálogos se muestran sin precio y el vendedor lo confirma.
+Los productos del catálogo **Davey** llevan precio:
+**(precio en ¥ ÷ 6) × 1,20**. El precio es por la presentación del catálogo (ej. "por paquete de 12 piezas").
+Los productos de la lista Excel que ya están en el catálogo reciben un 20 % sobre el precio base; los de Navidad conservan el precio impreso en el PDF. Estas reglas están en `tools/precios.json`.
+Los demás productos se muestran sin precio y el vendedor lo confirma.
 
 ## Actualizar con catálogos nuevos
 Requiere Node.js. Dentro de `tools/`:
@@ -31,12 +32,13 @@ npm install
 node davey.mjs catalogo-hogar.pdf A out/A.json out/img
 node davey.mjs catalogo-variedades.pdf B out/B.json out/img
 node canaima.mjs catalogo-iluminacion.pdf out/G.json out/img
+node corpexca.mjs catalogo-corpexca.pdf out/K.json out/img
 node merge.mjs
 ```
 
 `davey.mjs` lee código, nombre, precio y foto de cada producto y descarta los agotados.
 `canaima.mjs` tiene la lista de productos de iluminación escrita a mano (sus páginas no siguen un formato fijo).
-`merge.mjs` reemplaza en `productos.js` los productos de esos catálogos y copia las fotos.
+`corpexca.mjs` extrae los productos Kingsbright disponibles y sus fotos; `merge.mjs` reemplaza y agrega productos, y copia las fotos.
 
 ## Cómo funciona el pedido
 El cliente agrega productos al carrito, llena sus datos, escoge el vendedor, y al presionar **Enviar pedido por WhatsApp** se abre el chat del vendedor con el pedido ya escrito, con el total estimado de los productos que tienen precio.
