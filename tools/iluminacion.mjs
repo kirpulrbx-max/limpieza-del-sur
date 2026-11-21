@@ -51,6 +51,8 @@ inCat.forEach((p, i) => { if (!subFirst.has(p.sub)) subFirst.set(p.sub, i); });
 const ilum = inCat
   .map((p, i) => ({ p, i }))
   .sort((a, b) => group(a.p) - group(b.p) ||
+    // dentro de los bombillos, primero los que tienen precio
+    (group(a.p) <= 1 ? (a.p.pr == null) - (b.p.pr == null) : 0) ||
     (group(a.p) === 1 ? (subRank[a.p.sub] ?? 9) - (subRank[b.p.sub] ?? 9) : 0) ||
     (group(a.p) === 3 ? subFirst.get(a.p.sub) - subFirst.get(b.p.sub) : 0) || a.i - b.i)
   .map(x => x.p);
