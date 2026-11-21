@@ -34,11 +34,13 @@ node davey.mjs catalogo-variedades.pdf B out/B.json out/img
 node canaima.mjs catalogo-iluminacion.pdf out/G.json out/img
 node corpexca.mjs catalogo-corpexca.pdf out/K.json out/img
 node merge.mjs
+node iluminacion.mjs
 ```
 
 `davey.mjs` lee código, nombre, precio y foto de cada producto y descarta los agotados.
 `canaima.mjs` tiene la lista de productos de iluminación escrita a mano (sus páginas no siguen un formato fijo).
 `corpexca.mjs` extrae los productos Kingsbright disponibles y sus fotos; `merge.mjs` reemplaza y agrega productos, y copia las fotos.
+`iluminacion.mjs` quita los bombillos que no son Kingsbright ni Amanerluz y ordena Iluminación: primero bombillos Amanerluz, luego Kingsbright, luego reflectores y después el resto.
 
 ## Cómo funciona el pedido
 El cliente agrega productos al carrito, llena sus datos, escoge el vendedor, y al presionar **Enviar pedido por WhatsApp** se abre el chat del vendedor con el pedido ya escrito, con el total estimado de los productos que tienen precio.
