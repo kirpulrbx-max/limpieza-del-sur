@@ -27,6 +27,11 @@ const category = page => {
   return "Paneles y plafones";
 };
 
+// "PRECIO UNIDAD: ¥ 3,75" o "¥ 1.250,00": el punto separa miles y la coma es decimal
+const yuan = text => {
+  const m = /¥\s*([\d.,]+)/.exec(text);
+  return m ? parseFloat(m[1].replace(/[.,]$/, "").replace(/\.(?=\d{3}\b)/g, "").replace(",", ".")) : null;
+};
 fs.mkdirSync(imgDir, { recursive: true });
 const byCode = new Map();
 for (let pageNumber = 2; pageNumber <= Math.min(15, doc.countPages()); pageNumber++) {
@@ -114,6 +119,7 @@ for (let pageNumber = 2; pageNumber <= Math.min(15, doc.countPages()); pageNumbe
       bulto: pack ? `${pack[2]} unidades por ${packageType}` : "",
       agotado: exhausted,
       img,
+      precio: yuan(price.text),
       pagina: pageNumber,
     });
   }

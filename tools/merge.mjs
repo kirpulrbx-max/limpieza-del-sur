@@ -116,6 +116,8 @@ const corpexca = read("out/K.json").filter(i => !i.agotado).map(i => {
       u: ["Unidad", ...(packageName ? [packageName[0].toUpperCase() + packageName.slice(1)] : [])],
     };
   if (match?.nombre) product.n = match.nombre;
+  // precio Corpexca por unidad: (¥ ÷ 6) × 1,20; los que están en el Excel se reemplazan más abajo
+  if (i.precio != null) product.pr = precio(i.precio);
   if (i.bulto) product.b = i.bulto;
   if (packageName) product.u = ["Unidad", packageName[0].toUpperCase() + packageName.slice(1)];
   return product;
