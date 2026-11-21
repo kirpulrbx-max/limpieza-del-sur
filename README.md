@@ -19,8 +19,8 @@ Cada producto en `productos.js` es una línea como:
 Campos opcionales: `"sub"` (categoría), `"p"` (presentación), `"b"` (contenido del bulto), `"u":["Pieza","Bulto"]` (presentaciones que se pueden pedir), `"pr":6.5` (precio en $).
 
 ## Precios
-Los productos del catálogo **Davey** llevan precio:
-**(precio en ¥ ÷ 6) × 1,20**. El precio es por la presentación del catálogo (ej. "por paquete de 12 piezas").
+Los productos de los catálogos **Davey** (Hogar, Variedades y Ferretería) llevan precio:
+**(precio en ¥ ÷ 6) × 1,20**. En el PDF el punto separa los miles ("¥: 1.050" = 1050 yuanes) y la coma es decimal. El precio es por la presentación del catálogo (ej. "por paquete de 12 piezas").
 Los productos de la lista Excel que ya están en el catálogo reciben un 20 % sobre el precio base; los de Navidad conservan el precio impreso en el PDF. Estas reglas están en `tools/precios.json`.
 Los demás productos se muestran sin precio y el vendedor lo confirma.
 

@@ -38,7 +38,9 @@ for (let pi = 1; pi < doc.countPages(); pi++) {
     const box = near.find(l => /[一⼀]\s*[大⼤]\s*箱/.test(l.t));
     const agotado = !yen || /agotad[oa]/i.test(yen.t);
     const pm = yen && /¥\s*[:：]?\s*([\d.,]+)/.exec(yen.t);
-    const precio = pm ? parseFloat(pm[1].replace(",", ".")) : null;
+    // el punto separa miles ("1.050" = 1050) y la coma es decimal ("15,50" = 15.5)
+    const num = pm ? pm[1].replace(/[.,]$/, "") : "";
+    const precio = num ? parseFloat(/^\d{1,3}(\.\d{3})+(,\d+)?$/.test(num) ? num.replace(/\./g, "").replace(",", ".") : num.replace(",", ".")) : null;
     let pres = yen ? clean(yen.t.replace(/^.*?¥\s*[:：]?\s*[\d.,]*\s*/i, "")) : "";
     if (/agotad[oa]/i.test(pres)) pres = "";
     const bulto = box ? clean(box.t.replace(/[()（）]/g, "").replace(/^.*箱\s*/, "")) : "";
