@@ -3,7 +3,7 @@
 //   con precio = (¥ / 6) × 1.2.
 // - Canaima (G): agrega iluminación y electricidad; quita los productos viejos que repite.
 // - Corpexca (K): agrega iluminación Kingsbright, actualiza coincidencias y omite agotados.
-// - Excel: agrega 20 % a los precios base; Navidad conserva los precios publicados en el PDF.
+// - Excel de Xavier: usa el precio exacto del Excel; Navidad conserva los precios publicados en el PDF.
 // node merge.mjs
 import fs from "fs";
 const SITE = "..";
@@ -133,7 +133,7 @@ const byId = new Map(out.map(p => [p.id, p]));
 for (const [id, basePrice] of Object.entries(precios.excel)) {
   const product = byId.get(id);
   if (!product) throw new Error(`No existe el producto del Excel ${id}`);
-  product.pr = Math.round(basePrice * 1.2 * 100) / 100;
+  product.pr = basePrice; // precio exacto del Excel de Xavier
   const units = product.u || ["Unidad", "Docena", "Bulto"];
   product.u = ["Unidad", ...units.filter(unit => unit !== "Unidad")];
   if (product.p?.startsWith("Se vende por ")) {

@@ -21,8 +21,8 @@ Campos opcionales: `"sub"` (categoría), `"p"` (presentación), `"b"` (contenido
 ## Precios
 Los productos de los catálogos **Davey** (Hogar, Variedades y Ferretería) llevan precio:
 **(precio en ¥ ÷ 6) × 1,20**. En el PDF el punto separa los miles ("¥: 1.050" = 1050 yuanes) y la coma es decimal. El precio es por la presentación del catálogo (ej. "por paquete de 12 piezas").
-Los productos de la lista Excel que ya están en el catálogo reciben un 20 % sobre el precio base; los de Navidad conservan el precio impreso en el PDF. Estas reglas están en `tools/precios.json`.
-Los productos **Kingsbright** del catálogo Corpexca usan la misma regla con el precio por unidad, salvo los que están en la lista Excel, que conservan el precio del Excel.
+Los productos de la lista Excel de Xavier llevan el precio exacto del Excel (sin 20 %); los de Navidad conservan el precio impreso en el PDF. Estas reglas están en `tools/precios.json`.
+Los productos **Kingsbright** del catálogo Corpexca usan la misma regla con el precio por unidad, salvo los que están en el Excel de Xavier, que llevan el precio exacto del Excel.
 Los demás productos se muestran sin precio y el vendedor lo confirma.
 
 ## Actualizar con catálogos nuevos
