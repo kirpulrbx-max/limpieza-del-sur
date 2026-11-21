@@ -105,9 +105,9 @@ a { color: inherit; }
 .total b { font-size: 18px; }
 .total small { flex-basis: 100%; color: var(--muted); font-size: 11.5px; }
 .line .meta { display: block; }
-.sub { font-size: 11.5px; color: var(--muted); margin-top: 3px; min-height: 17px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sub { font-size: 11.5px; color: var(--muted); margin-top: 3px; min-height: 17px; line-height: 1.35; overflow-wrap: anywhere; }
 .sub .dot { color: #f5a524; }
-.acts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
+.acts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: auto; padding-top: 10px; }
 
 .pager { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--line); margin-top: 26px; padding-top: 16px; gap: 10px; }
 .pager .nums { display: flex; gap: 4px; flex-wrap: wrap; justify-content: center; }
