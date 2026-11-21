@@ -13,7 +13,22 @@ const CAT = "Iluminación y pilas";
 const isBulb = p => /^bombillo/i.test(p.n);
 const brand = p => /kingsbright/i.test(p.n) ? "K" : /amanerluz/i.test(p.n) ? "A" : "";
 
-for (const p of all) p.n = p.n.replace(/\bAmerluz\b/g, "Amanerluz");
+// Productos de iluminación que estaban en otras secciones (incluye los socates)
+const MOVE = {
+  "C-0002": "Reflectores", "C-0003": "Reflectores",
+  "C-0004": "Lámparas", "C-0005": "Lámparas", "C-0006": "Lámparas",
+  "C-0007": "Iluminación recargable", "C-0008": "Iluminación recargable",
+  "B-0011": "Lámparas de mesa", "B-0012": "Lámparas de mesa", "B-0013": "Lámparas de mesa",
+  "B-0014": "Lámparas de mesa", "B-0015": "Lámparas de mesa", "B-0016": "Lámparas de mesa",
+  "B-0017": "Lámparas de mesa", "B-0018": "Lámparas de mesa", "B-0019": "Lámparas de mesa",
+  "B-0472": "Lámparas de mesa",
+  "F-0031": "Socates", "G-0107": "Socates", "G-0108": "Socates", "G-0125": "Socates",
+  "G-0126": "Socates", "G-0116": "Socates", "C-0271": "Socates",
+};
+for (const p of all) {
+  p.n = p.n.replace(/\bAmerluz\b/g, "Amanerluz");
+  if (MOVE[p.id]) { p.cat = CAT; p.sub = MOVE[p.id]; }
+}
 const removed = all.filter(p => isBulb(p) && !brand(p));
 const list = all.filter(p => !removed.includes(p));
 
