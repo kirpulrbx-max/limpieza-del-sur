@@ -43,5 +43,8 @@ node iluminacion.mjs
 `corpexca.mjs` extrae los productos Kingsbright disponibles y sus fotos; `merge.mjs` reemplaza y agrega productos, y copia las fotos.
 `iluminacion.mjs` quita los bombillos que no son Kingsbright ni Amanerluz y ordena Iluminación: primero bombillos Amanerluz, luego Kingsbright, luego reflectores y después el resto.
 
+## Publicar cambios
+Después de cambiar `productos.js`, `app.js`, `styles.css` o `config.js`, sube el número `?v=` de esos archivos en `index.html`. Así los teléfonos descargan la versión nueva en vez de usar la guardada.
+
 ## Cómo funciona el pedido
 El cliente agrega productos al carrito, llena sus datos, escoge el vendedor, y al presionar **Enviar pedido por WhatsApp** se abre el chat del vendedor con el pedido ya escrito, con el total estimado de los productos que tienen precio.
