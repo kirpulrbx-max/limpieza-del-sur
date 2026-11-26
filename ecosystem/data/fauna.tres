@@ -1,0 +1,63 @@
+[gd_resource type="Resource" script_class="DefList" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/def_list.gd" id="1_list"]
+[ext_resource type="Script" path="res://scripts/data/fauna_def.gd" id="2_def"]
+
+[sub_resource type="Resource" id="Resource_butterfly"]
+script = ExtResource("2_def")
+id = &"butterfly"
+display_name = "Mariposas de vidrio"
+description = "Polinizan la flora (+esencia) y producen polen."
+model = &"butterfly"
+habitat_kind = &"air"
+oxygen_use = 0.06
+repro_rate = 0.06
+essence = 0.15
+produce = {"pollen": 0.02}
+biodiversity = 3.0
+plant_bonus = 0.01
+intro_cost = {"essence": 100.0, "oxygen": 30.0}
+intro_amount = 2.0
+unlock_tech = &"fauna"
+color = Color(0.55, 0.85, 1.0, 1)
+
+[sub_resource type="Resource" id="Resource_fish"]
+script = ExtResource("2_def")
+id = &"fish"
+display_name = "Peces burbuja"
+description = "Viven en los estanques. Filtran el agua y crean perlas de rocío."
+model = &"fish"
+habitat_kind = &"water"
+oxygen_use = 0.04
+water_use = 0.05
+repro_rate = 0.04
+essence = 0.25
+produce = {"pearls": 0.006}
+biodiversity = 4.0
+intro_cost = {"essence": 400.0, "water": 50.0}
+intro_amount = 2.0
+unlock_tech = &"hydrobiology"
+color = Color(1.0, 0.7, 0.35, 1)
+
+[sub_resource type="Resource" id="Resource_jelly"]
+script = ExtResource("2_def")
+id = &"jelly"
+display_name = "Medusas aéreas"
+description = "Flotan entre las islas absorbiendo luz. Generan muchísima esencia."
+model = &"jelly"
+habitat_kind = &"air"
+oxygen_use = 0.15
+light_use = 0.08
+repro_rate = 0.03
+essence = 1.5
+produce = {}
+biodiversity = 6.0
+plant_bonus = 0.005
+intro_cost = {"essence": 15000.0, "pollen": 40.0}
+intro_amount = 2.0
+unlock_tech = &"jellybirds"
+color = Color(0.85, 0.6, 1.0, 1)
+
+[resource]
+script = ExtResource("1_list")
+items = [SubResource("Resource_butterfly"), SubResource("Resource_fish"), SubResource("Resource_jelly")]

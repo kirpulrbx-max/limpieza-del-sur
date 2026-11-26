@@ -1,0 +1,234 @@
+[gd_resource type="Resource" script_class="DefList" load_steps=26 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/def_list.gd" id="1_list"]
+[ext_resource type="Script" path="res://scripts/data/mission_def.gd" id="2_def"]
+
+[sub_resource type="Resource" id="Resource_m_water"]
+script = ExtResource("2_def")
+id = &"m_water"
+title = "Agua de vida"
+description = "Mira el estanque y pulsa E (o clic) para recoger 10 de agua."
+kind = &"stat"
+key = "water_collected"
+target = 10.0
+reward = {"essence": 2.0}
+
+[sub_resource type="Resource" id="Resource_m_seed"]
+script = ExtResource("2_def")
+id = &"m_seed"
+title = "Una semilla perdida"
+description = "Busca una semilla flotante brillante y recógela."
+kind = &"stat"
+key = "seeds_collected"
+target = 1.0
+reward = {"water": 5.0}
+
+[sub_resource type="Resource" id="Resource_m_plant"]
+script = ExtResource("2_def")
+id = &"m_plant"
+title = "Primera siembra"
+description = "Mira una parcela fértil y pulsa E para plantar un Helecho Burbuja."
+kind = &"stat"
+key = "plants_planted"
+target = 1.0
+reward = {"seeds": 1.0}
+
+[sub_resource type="Resource" id="Resource_m_watering"]
+script = ExtResource("2_def")
+id = &"m_watering"
+title = "Riego inicial"
+description = "Los brotes nuevos necesitan agua: mira el brote y pulsa E para regarlo."
+kind = &"stat"
+key = "sprouts_watered"
+target = 1.0
+reward = {"light": 10.0}
+
+[sub_resource type="Resource" id="Resource_m_mature"]
+script = ExtResource("2_def")
+id = &"m_mature"
+title = "Crecer"
+description = "Mantén agua y luz disponibles hasta que la planta madure."
+kind = &"stat"
+key = "plants_matured"
+target = 1.0
+reward = {"essence": 10.0}
+
+[sub_resource type="Resource" id="Resource_m_essence"]
+script = ExtResource("2_def")
+id = &"m_essence"
+title = "Esencia vital"
+description = "Acumula 15 de esencia (las plantas maduras la producen solas)."
+kind = &"stat"
+key = "essence_run"
+target = 15.0
+reward = {"seeds": 1.0}
+
+[sub_resource type="Resource" id="Resource_m_upgrade"]
+script = ExtResource("2_def")
+id = &"m_upgrade"
+title = "Mejorar"
+description = "Abre el menú (Tab) y compra una mejora."
+kind = &"stat"
+key = "upgrades_bought"
+target = 1.0
+reward = {"essence": 10.0}
+
+[sub_resource type="Resource" id="Resource_m_four"]
+script = ExtResource("2_def")
+id = &"m_four"
+title = "Un pequeño jardín"
+description = "Ten 4 plantas vivas a la vez."
+kind = &"plants_alive"
+target = 4.0
+reward = {"essence": 20.0}
+
+[sub_resource type="Resource" id="Resource_m_bloom"]
+script = ExtResource("2_def")
+id = &"m_bloom"
+title = "Floración"
+description = "Cosecha una floración brillante de una planta madura."
+kind = &"stat"
+key = "blooms_harvested"
+target = 1.0
+reward = {"essence": 15.0}
+
+[sub_resource type="Resource" id="Resource_m_light"]
+script = ExtResource("2_def")
+id = &"m_light"
+title = "Cazador de luz"
+description = "Recoge 10 motas de luz junto a los cristales."
+kind = &"stat"
+key = "light_motes"
+target = 10.0
+reward = {"essence": 20.0}
+
+[sub_resource type="Resource" id="Resource_m_tech"]
+script = ExtResource("2_def")
+id = &"m_tech"
+title = "Investigación"
+description = "Investiga Condensación en el Árbol tecnológico."
+kind = &"tech"
+key = "condensation"
+target = 1.0
+reward = {"essence": 25.0}
+
+[sub_resource type="Resource" id="Resource_m_build"]
+script = ExtResource("2_def")
+id = &"m_build"
+title = "Arquitectura viva"
+description = "Construye un Condensador de rocío (menú > Construcción)."
+kind = &"structure"
+key = "condenser"
+target = 1.0
+reward = {"water": 30.0}
+
+[sub_resource type="Resource" id="Resource_m_level3"]
+script = ExtResource("2_def")
+id = &"m_level3"
+title = "Ecosistema en marcha"
+description = "Alcanza el nivel 3 del ecosistema."
+kind = &"level"
+target = 3.0
+reward = {"essence": 60.0}
+
+[sub_resource type="Resource" id="Resource_m_lily"]
+script = ExtResource("2_def")
+id = &"m_lily"
+title = "Luz hecha flor"
+description = "Planta un Lirio Prisma."
+kind = &"plant_species"
+key = "lily"
+target = 1.0
+reward = {"light": 40.0}
+
+[sub_resource type="Resource" id="Resource_m_expand"]
+script = ExtResource("2_def")
+id = &"m_expand"
+title = "Más terreno"
+description = "Compra Expansión del terreno."
+kind = &"upgrade"
+key = "expansion"
+target = 1.0
+reward = {"seeds": 3.0}
+
+[sub_resource type="Resource" id="Resource_m_butterfly"]
+script = ExtResource("2_def")
+id = &"m_butterfly"
+title = "Alas de vidrio"
+description = "Introduce las Mariposas de vidrio (menú > Especies)."
+kind = &"fauna"
+key = "butterfly"
+target = 1.0
+reward = {"oxygen": 40.0}
+
+[sub_resource type="Resource" id="Resource_m_biodiv"]
+script = ExtResource("2_def")
+id = &"m_biodiv"
+title = "Diversidad"
+description = "Alcanza 15 de biodiversidad."
+kind = &"biodiv"
+target = 15.0
+reward = {"essence": 200.0}
+
+[sub_resource type="Resource" id="Resource_m_auto"]
+script = ExtResource("2_def")
+id = &"m_auto"
+title = "Siembra autónoma"
+description = "Construye un Sembrador autónomo."
+kind = &"structure"
+key = "seeder"
+target = 1.0
+reward = {"seeds": 5.0}
+
+[sub_resource type="Resource" id="Resource_m_crystal"]
+script = ExtResource("2_def")
+id = &"m_crystal"
+title = "Más allá del vacío"
+description = "Desbloquea el puente y visita la Isla Cristalina."
+kind = &"island_visit"
+key = "crystal"
+target = 1.0
+reward = {"light": 100.0}
+
+[sub_resource type="Resource" id="Resource_m_aurora"]
+script = ExtResource("2_def")
+id = &"m_aurora"
+title = "El gran árbol"
+description = "Planta un Árbol Aurora."
+kind = &"plant_species"
+key = "aurora"
+target = 1.0
+reward = {"pollen": 20.0}
+
+[sub_resource type="Resource" id="Resource_m_level6"]
+script = ExtResource("2_def")
+id = &"m_level6"
+title = "Ecosistema floreciente"
+description = "Alcanza el nivel 6 del ecosistema."
+kind = &"level"
+target = 6.0
+reward = {"essence": 2000.0}
+
+[sub_resource type="Resource" id="Resource_m_lagoon"]
+script = ExtResource("2_def")
+id = &"m_lagoon"
+title = "La laguna"
+description = "Visita la Isla Laguna."
+kind = &"island_visit"
+key = "lagoon"
+target = 1.0
+reward = {"pearls": 10.0}
+
+[sub_resource type="Resource" id="Resource_m_rebirth"]
+script = ExtResource("2_def")
+id = &"m_rebirth"
+title = "Renacimiento"
+description = "Realiza un Renacimiento ecológico."
+kind = &"stat"
+key = "prestiges"
+target = 1.0
+reward = {"essence": 500.0}
+
+[resource]
+script = ExtResource("1_list")
+items = [SubResource("Resource_m_water"), SubResource("Resource_m_seed"), SubResource("Resource_m_plant"), SubResource("Resource_m_watering"), SubResource("Resource_m_mature"), SubResource("Resource_m_essence"), SubResource("Resource_m_upgrade"), SubResource("Resource_m_four"), SubResource("Resource_m_bloom"), SubResource("Resource_m_light"), SubResource("Resource_m_tech"), SubResource("Resource_m_build"), SubResource("Resource_m_level3"), SubResource("Resource_m_lily"), SubResource("Resource_m_expand"), SubResource("Resource_m_butterfly"), SubResource("Resource_m_biodiv"), SubResource("Resource_m_auto"), SubResource("Resource_m_crystal"), SubResource("Resource_m_aurora"), SubResource("Resource_m_level6"), SubResource("Resource_m_lagoon"), SubResource("Resource_m_rebirth")]

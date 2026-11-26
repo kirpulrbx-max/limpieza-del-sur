@@ -1,0 +1,220 @@
+[gd_resource type="Resource" script_class="DefList" load_steps=22 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/def_list.gd" id="1_list"]
+[ext_resource type="Script" path="res://scripts/data/upgrade_def.gd" id="2_def"]
+
+[sub_resource type="Resource" id="Resource_tool_power"]
+script = ExtResource("2_def")
+id = &"tool_power"
+display_name = "Recolector: potencia"
+description = "Cada recolección manual obtiene +100% recursos."
+group = "Herramientas"
+cost = {"essence": 10.0}
+cost_growth = 1.7
+effect = 1.0
+
+[sub_resource type="Resource" id="Resource_tool_magnet"]
+script = ExtResource("2_def")
+id = &"tool_magnet"
+display_name = "Recolector: imán"
+description = "+1,5 m de radio de atracción de fenómenos."
+group = "Herramientas"
+cost = {"essence": 20.0}
+cost_growth = 1.85
+max_level = 8
+effect = 1.5
+
+[sub_resource type="Resource" id="Resource_tool_reach"]
+script = ExtResource("2_def")
+id = &"tool_reach"
+display_name = "Recolector: alcance"
+description = "+1 m de alcance de interacción."
+group = "Herramientas"
+cost = {"essence": 15.0}
+cost_growth = 1.9
+max_level = 6
+effect = 1.0
+
+[sub_resource type="Resource" id="Resource_photosynthesis"]
+script = ExtResource("2_def")
+id = &"photosynthesis"
+display_name = "Fotosíntesis"
+description = "+30% de esencia producida por la flora."
+group = "Flora"
+cost = {"essence": 15.0}
+cost_growth = 1.65
+effect = 0.3
+
+[sub_resource type="Resource" id="Resource_fast_growth"]
+script = ExtResource("2_def")
+id = &"fast_growth"
+display_name = "Crecimiento acelerado"
+description = "+20% de velocidad de crecimiento."
+group = "Flora"
+cost = {"essence": 30.0}
+cost_growth = 1.8
+max_level = 10
+effect = 0.2
+
+[sub_resource type="Resource" id="Resource_deep_roots"]
+script = ExtResource("2_def")
+id = &"deep_roots"
+display_name = "Raíces profundas"
+description = "-8% de consumo de agua de la flora."
+group = "Flora"
+cost = {"essence": 40.0}
+cost_growth = 1.9
+max_level = 15
+effect = 0.08
+
+[sub_resource type="Resource" id="Resource_mirror_leaves"]
+script = ExtResource("2_def")
+id = &"mirror_leaves"
+display_name = "Hojas espejo"
+description = "-8% de consumo de luz de la flora."
+group = "Flora"
+cost = {"essence": 40.0}
+cost_growth = 1.9
+max_level = 15
+effect = 0.08
+
+[sub_resource type="Resource" id="Resource_seed_rain"]
+script = ExtResource("2_def")
+id = &"seed_rain"
+display_name = "Lluvia de semillas"
+description = "+25% de aparición y caída de semillas."
+group = "Flora"
+cost = {"essence": 35.0}
+cost_growth = 1.9
+max_level = 10
+effect = 0.25
+
+[sub_resource type="Resource" id="Resource_bloom"]
+script = ExtResource("2_def")
+id = &"bloom"
+display_name = "Floración"
+description = "Las floraciones llegan un 15% antes y dan +25% de esencia."
+group = "Flora"
+cost = {"essence": 150.0}
+cost_growth = 1.85
+max_level = 10
+effect = 0.15
+unlock_tech = &"botany"
+
+[sub_resource type="Resource" id="Resource_storage"]
+script = ExtResource("2_def")
+id = &"storage"
+display_name = "Depósitos de cristal"
+description = "+50% de capacidad de agua, luz, oxígeno, polen y perlas; +10 semillas."
+group = "Mundo"
+cost = {"essence": 25.0}
+cost_growth = 2.1
+effect = 0.5
+
+[sub_resource type="Resource" id="Resource_expansion"]
+script = ExtResource("2_def")
+id = &"expansion"
+display_name = "Expansión del terreno"
+description = "La Isla Origen crece y gana 4 parcelas fértiles."
+group = "Mundo"
+cost = {"essence": 80.0}
+cost_growth = 3.2
+max_level = 5
+effect = 4.0
+
+[sub_resource type="Resource" id="Resource_respiration"]
+script = ExtResource("2_def")
+id = &"respiration"
+display_name = "Respiración profunda"
+description = "+25% de oxígeno producido."
+group = "Mundo"
+cost = {"essence": 120.0}
+cost_growth = 1.8
+effect = 0.25
+unlock_tech = &"respiration"
+
+[sub_resource type="Resource" id="Resource_struct_boost"]
+script = ExtResource("2_def")
+id = &"struct_boost"
+display_name = "Estructuras mejoradas"
+description = "+30% de producción de condensadores y prismas."
+group = "Mundo"
+cost = {"essence": 300.0}
+cost_growth = 1.9
+effect = 0.3
+unlock_tech = &"automation"
+
+[sub_resource type="Resource" id="Resource_pollination"]
+script = ExtResource("2_def")
+id = &"pollination"
+display_name = "Polinización cruzada"
+description = "+20% de la bonificación de esencia de la fauna polinizadora."
+group = "Fauna"
+cost = {"pollen": 15.0}
+cost_growth = 1.7
+max_level = 10
+effect = 0.2
+unlock_tech = &"pollination"
+
+[sub_resource type="Resource" id="Resource_p_resonance"]
+script = ExtResource("2_def")
+id = &"p_resonance"
+display_name = "Eco resonante"
+description = "+15% a toda la producción de esencia."
+category = &"prestige"
+group = "Permanente"
+cost = {"ecos": 2.0}
+cost_growth = 1.8
+effect = 0.15
+
+[sub_resource type="Resource" id="Resource_p_seedbank"]
+script = ExtResource("2_def")
+id = &"p_seedbank"
+display_name = "Semillero ancestral"
+description = "Empiezas cada ciclo con +3 semillas y +200 de esencia."
+category = &"prestige"
+group = "Permanente"
+cost = {"ecos": 1.0}
+cost_growth = 1.6
+max_level = 10
+effect = 3.0
+
+[sub_resource type="Resource" id="Resource_p_fastroot"]
+script = ExtResource("2_def")
+id = &"p_fastroot"
+display_name = "Raíz veloz"
+description = "+25% de velocidad de crecimiento."
+category = &"prestige"
+group = "Permanente"
+cost = {"ecos": 2.0}
+cost_growth = 1.9
+max_level = 5
+effect = 0.25
+
+[sub_resource type="Resource" id="Resource_p_memory"]
+script = ExtResource("2_def")
+id = &"p_memory"
+display_name = "Memoria del suelo"
+description = "+10% de eficiencia offline y +2 h de tiempo offline máximo."
+category = &"prestige"
+group = "Permanente"
+cost = {"ecos": 1.0}
+cost_growth = 1.7
+max_level = 5
+effect = 0.1
+
+[sub_resource type="Resource" id="Resource_p_keeptech"]
+script = ExtResource("2_def")
+id = &"p_keeptech"
+display_name = "Conocimiento heredado"
+description = "Conservas las tecnologías básicas al renacer."
+category = &"prestige"
+group = "Permanente"
+cost = {"ecos": 3.0}
+cost_growth = 1.0
+max_level = 1
+effect = 1.0
+
+[resource]
+script = ExtResource("1_list")
+items = [SubResource("Resource_tool_power"), SubResource("Resource_tool_magnet"), SubResource("Resource_tool_reach"), SubResource("Resource_photosynthesis"), SubResource("Resource_fast_growth"), SubResource("Resource_deep_roots"), SubResource("Resource_mirror_leaves"), SubResource("Resource_seed_rain"), SubResource("Resource_bloom"), SubResource("Resource_storage"), SubResource("Resource_expansion"), SubResource("Resource_respiration"), SubResource("Resource_struct_boost"), SubResource("Resource_pollination"), SubResource("Resource_p_resonance"), SubResource("Resource_p_seedbank"), SubResource("Resource_p_fastroot"), SubResource("Resource_p_memory"), SubResource("Resource_p_keeptech")]
