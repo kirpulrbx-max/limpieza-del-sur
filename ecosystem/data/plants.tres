@@ -1,0 +1,92 @@
+[gd_resource type="Resource" script_class="DefList" load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/def_list.gd" id="1_list"]
+[ext_resource type="Script" path="res://scripts/data/plant_def.gd" id="2_def"]
+
+[sub_resource type="Resource" id="Resource_fern"]
+script = ExtResource("2_def")
+id = &"fern"
+display_name = "Helecho Burbuja"
+description = "Un helecho resistente que respira burbujas de oxígeno. La primera vida del ecosistema."
+model = &"fern"
+seed_cost = 1
+plant_cost = {"water": 5.0}
+grow_time = 30.0
+water_use = 0.08
+light_use = 0.06
+essence = 0.6
+oxygen = 0.25
+habitat = 0.6
+seed_rate = 0.016
+biodiversity = 1.0
+bloom_time = 40.0
+color = Color(0.25, 0.82, 0.42, 1)
+accent = Color(0.75, 1.0, 0.85, 1)
+
+[sub_resource type="Resource" id="Resource_lily"]
+script = ExtResource("2_def")
+id = &"lily"
+display_name = "Lirio Prisma"
+description = "Pétalos de vidrio que descomponen la luz. Muy productivo, pero sediento de luz."
+model = &"lily"
+seed_cost = 1
+plant_cost = {"water": 12.0, "light": 10.0}
+grow_time = 60.0
+water_use = 0.12
+light_use = 0.22
+essence = 2.4
+oxygen = 0.3
+habitat = 1.0
+seed_rate = 0.012
+biodiversity = 2.0
+bloom_time = 50.0
+unlock_tech = &"botany"
+color = Color(0.95, 0.55, 0.9, 1)
+accent = Color(1.0, 0.95, 0.6, 1)
+
+[sub_resource type="Resource" id="Resource_aurora"]
+script = ExtResource("2_def")
+id = &"aurora"
+display_name = "Árbol Aurora"
+description = "Un gran árbol de copa translúcida. Llena el cielo de oxígeno y da cobijo a mucha fauna."
+model = &"aurora"
+seed_cost = 3
+plant_cost = {"water": 50.0, "pollen": 8.0}
+grow_time = 180.0
+water_use = 0.5
+light_use = 0.35
+essence = 10.0
+oxygen = 2.0
+habitat = 4.0
+seed_rate = 0.01
+biodiversity = 4.0
+bloom_time = 70.0
+unlock_tech = &"aurora"
+color = Color(0.3, 0.95, 0.75, 1)
+accent = Color(0.7, 0.85, 1.0, 1)
+
+[sub_resource type="Resource" id="Resource_coral"]
+script = ExtResource("2_def")
+id = &"coral"
+display_name = "Coral Aéreo"
+description = "Coral que flota sobre el agua de la Isla Laguna. Enorme biodiversidad."
+model = &"coral"
+seed_cost = 2
+plant_cost = {"water": 30.0, "pearls": 3.0}
+grow_time = 120.0
+water_use = 0.3
+light_use = 0.2
+essence = 7.0
+oxygen = 1.2
+habitat = 2.0
+seed_rate = 0.01
+biodiversity = 6.0
+bloom_time = 60.0
+unlock_tech = &"coral"
+allowed_islands = PackedStringArray("lagoon")
+color = Color(1.0, 0.55, 0.45, 1)
+accent = Color(1.0, 0.85, 0.95, 1)
+
+[resource]
+script = ExtResource("1_list")
+items = [SubResource("Resource_fern"), SubResource("Resource_lily"), SubResource("Resource_aurora"), SubResource("Resource_coral")]

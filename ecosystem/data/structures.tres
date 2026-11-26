@@ -1,0 +1,69 @@
+[gd_resource type="Resource" script_class="DefList" load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/def_list.gd" id="1_list"]
+[ext_resource type="Script" path="res://scripts/data/structure_def.gd" id="2_def"]
+
+[sub_resource type="Resource" id="Resource_condenser"]
+script = ExtResource("2_def")
+id = &"condenser"
+display_name = "Condensador de rocío"
+description = "Condensa la humedad del cielo: produce agua."
+model = &"condenser"
+cost = {"essence": 50.0}
+cost_growth = 1.35
+produce = {"water": 0.6}
+footprint = 1.3
+unlock_tech = &"condensation"
+
+[sub_resource type="Resource" id="Resource_prism"]
+script = ExtResource("2_def")
+id = &"prism"
+display_name = "Prisma solar"
+description = "Concentra la luz del sol (más de día): produce luz."
+model = &"prism"
+cost = {"essence": 60.0}
+cost_growth = 1.35
+produce = {"light": 0.5}
+footprint = 1.2
+unlock_tech = &"optics"
+
+[sub_resource type="Resource" id="Resource_seeder"]
+script = ExtResource("2_def")
+id = &"seeder"
+display_name = "Sembrador autónomo"
+description = "Un dron que siembra semillas en las parcelas libres de su isla y riega los brotes."
+model = &"seeder"
+cost = {"essence": 300.0}
+cost_growth = 1.6
+footprint = 1.4
+max_count = 6
+unlock_tech = &"automation"
+
+[sub_resource type="Resource" id="Resource_collector"]
+script = ExtResource("2_def")
+id = &"collector"
+display_name = "Recolector de burbujas"
+description = "Atrae fenómenos cercanos y cosecha las floraciones de su isla."
+model = &"collector"
+cost = {"essence": 250.0}
+cost_growth = 1.6
+footprint = 1.4
+effect_radius = 12.0
+max_count = 6
+unlock_tech = &"automation"
+
+[sub_resource type="Resource" id="Resource_nest"]
+script = ExtResource("2_def")
+id = &"nest"
+display_name = "Nido de cristal"
+description = "Refugio geodésico: +6 de capacidad para fauna aérea."
+model = &"nest"
+cost = {"essence": 150.0, "oxygen": 40.0}
+cost_growth = 1.4
+fauna_capacity = 6.0
+footprint = 1.6
+unlock_tech = &"fauna"
+
+[resource]
+script = ExtResource("1_list")
+items = [SubResource("Resource_condenser"), SubResource("Resource_prism"), SubResource("Resource_seeder"), SubResource("Resource_collector"), SubResource("Resource_nest")]

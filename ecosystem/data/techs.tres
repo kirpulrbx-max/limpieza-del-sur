@@ -1,0 +1,174 @@
+[gd_resource type="Resource" script_class="DefList" load_steps=18 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/def_list.gd" id="1_list"]
+[ext_resource type="Script" path="res://scripts/data/tech_def.gd" id="2_def"]
+
+[sub_resource type="Resource" id="Resource_condensation"]
+script = ExtResource("2_def")
+id = &"condensation"
+display_name = "Condensación"
+description = "Desbloquea el Condensador de rocío."
+cost = {"essence": 40.0}
+min_level = 1
+tier = 0
+row = 0
+basic = true
+
+[sub_resource type="Resource" id="Resource_optics"]
+script = ExtResource("2_def")
+id = &"optics"
+display_name = "Óptica prismática"
+description = "Desbloquea el Prisma solar."
+cost = {"essence": 50.0}
+min_level = 1
+tier = 0
+row = 1
+basic = true
+
+[sub_resource type="Resource" id="Resource_botany"]
+script = ExtResource("2_def")
+id = &"botany"
+display_name = "Botánica prismática"
+description = "Desbloquea el Lirio Prisma y la mejora Floración."
+cost = {"essence": 100.0}
+min_level = 2
+tier = 0
+row = 2
+basic = true
+
+[sub_resource type="Resource" id="Resource_automation"]
+script = ExtResource("2_def")
+id = &"automation"
+display_name = "Automatización I"
+description = "Sembrador autónomo, Recolector de burbujas y Estructuras mejoradas."
+cost = {"essence": 300.0}
+requires = PackedStringArray("condensation", "optics")
+min_level = 3
+tier = 1
+row = 0
+basic = true
+
+[sub_resource type="Resource" id="Resource_fauna"]
+script = ExtResource("2_def")
+id = &"fauna"
+display_name = "Fauna: mariposas"
+description = "Desbloquea las Mariposas de vidrio y el Nido de cristal."
+cost = {"essence": 200.0, "oxygen": 50.0}
+requires = PackedStringArray("botany")
+min_level = 3
+tier = 1
+row = 2
+
+[sub_resource type="Resource" id="Resource_respiration"]
+script = ExtResource("2_def")
+id = &"respiration"
+display_name = "Respiración profunda"
+description = "Desbloquea la mejora Respiración profunda."
+cost = {"essence": 250.0, "oxygen": 100.0}
+requires = PackedStringArray("botany")
+min_level = 3
+tier = 1
+row = 3
+
+[sub_resource type="Resource" id="Resource_bridge_crystal"]
+script = ExtResource("2_def")
+id = &"bridge_crystal"
+display_name = "Puente a Isla Cristalina"
+description = "Tiende un puente de luz hacia la Isla Cristalina (luz x1,6)."
+cost = {"essence": 1500.0, "light": 80.0}
+requires = PackedStringArray("automation")
+min_level = 5
+tier = 2
+row = 0
+
+[sub_resource type="Resource" id="Resource_aurora"]
+script = ExtResource("2_def")
+id = &"aurora"
+display_name = "Árbol Aurora"
+description = "Desbloquea el Árbol Aurora."
+cost = {"essence": 900.0, "pollen": 25.0}
+requires = PackedStringArray("fauna")
+min_level = 4
+tier = 2
+row = 1
+
+[sub_resource type="Resource" id="Resource_pollination"]
+script = ExtResource("2_def")
+id = &"pollination"
+display_name = "Polinización cruzada"
+description = "Desbloquea la mejora Polinización cruzada."
+cost = {"essence": 400.0, "pollen": 10.0}
+requires = PackedStringArray("fauna")
+min_level = 4
+tier = 2
+row = 2
+
+[sub_resource type="Resource" id="Resource_hydrobiology"]
+script = ExtResource("2_def")
+id = &"hydrobiology"
+display_name = "Hidrobiología"
+description = "Desbloquea los Peces burbuja en los estanques."
+cost = {"essence": 600.0, "water": 80.0}
+requires = PackedStringArray("fauna")
+min_level = 4
+tier = 2
+row = 3
+
+[sub_resource type="Resource" id="Resource_offline_memory"]
+script = ExtResource("2_def")
+id = &"offline_memory"
+display_name = "Memoria del ecosistema"
+description = "+25% de eficiencia del progreso offline."
+cost = {"essence": 2000.0}
+requires = PackedStringArray("automation")
+min_level = 5
+tier = 3
+row = 0
+
+[sub_resource type="Resource" id="Resource_bridge_lagoon"]
+script = ExtResource("2_def")
+id = &"bridge_lagoon"
+display_name = "Puente a Isla Laguna"
+description = "Tiende un puente hacia la Isla Laguna (agua x1,5, gran estanque)."
+cost = {"essence": 8000.0, "pearls": 15.0}
+requires = PackedStringArray("bridge_crystal", "hydrobiology")
+min_level = 6
+tier = 3
+row = 2
+
+[sub_resource type="Resource" id="Resource_rebirth"]
+script = ExtResource("2_def")
+id = &"rebirth"
+display_name = "Renacimiento ecológico"
+description = "Permite reiniciar el ecosistema a cambio de Ecos permanentes."
+cost = {"essence": 10000.0}
+requires = PackedStringArray("automation")
+min_level = 6
+tier = 3
+row = 3
+
+[sub_resource type="Resource" id="Resource_coral"]
+script = ExtResource("2_def")
+id = &"coral"
+display_name = "Coral Aéreo"
+description = "Desbloquea el Coral Aéreo (solo Isla Laguna)."
+cost = {"essence": 9000.0, "pearls": 10.0}
+requires = PackedStringArray("bridge_lagoon")
+min_level = 6
+tier = 4
+row = 1
+
+[sub_resource type="Resource" id="Resource_jellybirds"]
+script = ExtResource("2_def")
+id = &"jellybirds"
+display_name = "Medusas aéreas"
+description = "Desbloquea las Medusas aéreas."
+cost = {"essence": 12000.0, "pollen": 60.0, "pearls": 20.0}
+requires = PackedStringArray("bridge_lagoon")
+min_level = 7
+tier = 4
+row = 2
+
+[resource]
+script = ExtResource("1_list")
+items = [SubResource("Resource_condensation"), SubResource("Resource_optics"), SubResource("Resource_botany"), SubResource("Resource_automation"), SubResource("Resource_fauna"), SubResource("Resource_respiration"), SubResource("Resource_bridge_crystal"), SubResource("Resource_aurora"), SubResource("Resource_pollination"), SubResource("Resource_hydrobiology"), SubResource("Resource_offline_memory"), SubResource("Resource_bridge_lagoon"), SubResource("Resource_rebirth"), SubResource("Resource_coral"), SubResource("Resource_jellybirds")]

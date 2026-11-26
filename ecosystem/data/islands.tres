@@ -1,0 +1,73 @@
+[gd_resource type="Resource" script_class="DefList" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/def_list.gd" id="1_list"]
+[ext_resource type="Script" path="res://scripts/data/island_def.gd" id="2_def"]
+
+[sub_resource type="Resource" id="Resource_origin"]
+script = ExtResource("2_def")
+id = &"origin"
+display_name = "Isla Origen"
+description = "Donde todo empezó. Un estanque central y tierra fértil."
+biome = "Pradera"
+position = Vector3(0.0, 0.0, 0.0)
+radius = 14.0
+noise_seed = 7
+grass_dead = Color(0.56, 0.5, 0.42, 1)
+grass_lush = Color(0.32, 0.86, 0.36, 1)
+rock_color = Color(0.78, 0.82, 0.9, 1)
+crystal_color = Color(0.45, 0.88, 1.0, 1)
+pond_offset = Vector2(0.0, 0.0)
+pond_radius = 3.2
+pond_capacity = 8.0
+crystal_count = 3
+base_plots = 4
+
+[sub_resource type="Resource" id="Resource_crystal"]
+script = ExtResource("2_def")
+id = &"crystal"
+display_name = "Isla Cristalina"
+description = "Bosque de cristales. La luz se multiplica (x1,6)."
+biome = "Cristal"
+position = Vector3(64.0, 7.0, -26.0)
+radius = 13.0
+noise_seed = 21
+grass_dead = Color(0.5, 0.5, 0.56, 1)
+grass_lush = Color(0.25, 0.88, 0.82, 1)
+rock_color = Color(0.84, 0.86, 1.0, 1)
+crystal_color = Color(1.0, 0.6, 0.95, 1)
+pond_offset = Vector2(0.0, 0.0)
+pond_radius = 0.0
+pond_capacity = 0.0
+crystal_count = 10
+base_plots = 10
+unlock_tech = &"bridge_crystal"
+bridge_from = &"origin"
+light_mult = 1.6
+essence_mult = 1.2
+
+[sub_resource type="Resource" id="Resource_lagoon"]
+script = ExtResource("2_def")
+id = &"lagoon"
+display_name = "Isla Laguna"
+description = "Una gran laguna cristalina. Agua x1,5 y hábitat para peces."
+biome = "Laguna"
+position = Vector3(-60.0, -5.0, -52.0)
+radius = 17.0
+noise_seed = 33
+grass_dead = Color(0.55, 0.52, 0.4, 1)
+grass_lush = Color(0.5, 0.9, 0.3, 1)
+rock_color = Color(0.75, 0.85, 0.88, 1)
+crystal_color = Color(0.5, 1.0, 0.75, 1)
+pond_offset = Vector2(0.0, 0.0)
+pond_radius = 6.5
+pond_capacity = 20.0
+crystal_count = 2
+base_plots = 10
+unlock_tech = &"bridge_lagoon"
+bridge_from = &"origin"
+water_mult = 1.5
+essence_mult = 1.3
+
+[resource]
+script = ExtResource("1_list")
+items = [SubResource("Resource_origin"), SubResource("Resource_crystal"), SubResource("Resource_lagoon")]
