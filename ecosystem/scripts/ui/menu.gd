@@ -408,7 +408,6 @@ func _build_map() -> void:
 func _build_stats() -> void:
 	var s := GameState.stats
 	var l := GameState.lifetime
-	var p := ["", ""]
 	_section("Ciclo actual")
 	_content.add_child(_kv_grid([
 		["Tiempo de juego", NumFmt.duration(s.get("playtime", 0.0))], ["Esencia generada", NumFmt.fmt(s.get("essence_run", 0.0))],

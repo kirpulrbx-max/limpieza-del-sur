@@ -12,6 +12,7 @@ var _bloom: Node3D
 var _bloom_mi: MeshInstance3D
 var _scale := 0.0
 var _last_health := -1.0
+var _last_pulse := -1.0
 var _t := 0.0
 var _burst: GPUParticles3D
 
@@ -120,8 +121,10 @@ func _apply() -> void:
 	var pulse := 0.0
 	if data.mature:
 		pulse = 0.25 * float(data.bloom)
-	for g in _geoms:
-		g.set_instance_shader_parameter("pulse", pulse)
+	if absf(pulse - _last_pulse) > 0.02:
+		_last_pulse = pulse
+		for g in _geoms:
+			g.set_instance_shader_parameter("pulse", pulse)
 
 
 # --------------------------------------------------------------------------------------

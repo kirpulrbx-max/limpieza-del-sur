@@ -5,6 +5,9 @@ var island: Node3D
 var index := 0
 var _ring: MeshInstance3D
 var _t := 0.0
+var _check_t := 0.0
+var _free := true
+var _ok := false
 
 
 func setup(isl: Node3D, i: int) -> void:
@@ -34,11 +37,14 @@ func is_free() -> bool:
 
 func _process(delta: float) -> void:
 	_t += delta
-	var free := is_free()
-	_ring.visible = free
-	if free:
-		var ok := GameState.plant_check(island.def.id, index, GameState.selected_species) == ""
-		_ring.set_instance_shader_parameter("intensity", (1.0 + 0.6 * sin(_t * 3.0)) if ok else 0.25)
+	_check_t -= delta
+	if _check_t <= 0.0:
+		_check_t = 0.3
+		_free = is_free()
+		_ok = _free and GameState.plant_check(island.def.id, index, GameState.selected_species) == ""
+	_ring.visible = _free
+	if _free:
+		_ring.set_instance_shader_parameter("intensity", (1.0 + 0.6 * sin(_t * 3.0)) if _ok else 0.25)
 
 
 func get_prompt() -> String:

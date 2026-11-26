@@ -201,9 +201,6 @@ func _build_nest() -> void:
 	dome.radial_segments = 10
 	dome.rings = 4
 	ProcMesh.add(self, dome, ProcMesh.glass(Color(0.75, 1.0, 0.95, 0.18), 0.6, 1.0, 2.0), Vector3(0, 0.3, 0), Vector3.ONE, Vector3.ZERO, false)
-	var frame := StandardMaterial3D.new()
-	frame.albedo_color = Color(0.95, 0.98, 1.0)
-	frame.wireframe = false
 	for i in 5:
 		var a := TAU * i / 5.0
 		var arc := Node3D.new()

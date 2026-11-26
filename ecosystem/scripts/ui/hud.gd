@@ -364,9 +364,10 @@ func _update_values() -> void:
 		pill.visible = i < w.size()
 		if pill.visible:
 			var lbl: Label = pill.get_child(0)
-			lbl.text = w[i]
-			var severe: bool = not w[i].contains("esperando")
-			pill.add_theme_stylebox_override("panel", Aero.flat(Color(0.65, 0.22, 0.15, 0.72) if severe else Color(0.55, 0.45, 0.1, 0.65), Color(1, 1, 1, 0.5), 12))
+			if lbl.text != w[i]:
+				lbl.text = w[i]
+				var severe: bool = not w[i].contains("esperando")
+				pill.add_theme_stylebox_override("panel", Aero.flat(Color(0.65, 0.22, 0.15, 0.72) if severe else Color(0.55, 0.45, 0.1, 0.65), Color(1, 1, 1, 0.5), 12))
 
 
 func toast(text: String, kind := "info") -> void:
