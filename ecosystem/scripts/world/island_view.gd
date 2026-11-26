@@ -24,6 +24,7 @@ var content: Node3D
 var _grass_total := 0
 var _flower_total := 0
 var _last_vis := -1.0
+var _decor: Array = []
 var _verts := PackedVector3Array()
 var _faces := PackedVector3Array()
 
@@ -40,6 +41,12 @@ func setup(d: IslandDef) -> void:
 	terrain_mat.set_shader_parameter("glow_color", d.crystal_color)
 	terrain_mat.set_shader_parameter("noise_tex", ProcMesh.noise_texture(true, false, 0.03))
 	terrain_mat.set_shader_parameter("pond_center", d.pond_offset)
+	if ResourceLoader.exists("res://assets/textures/grass004_color.jpg"):
+		terrain_mat.set_shader_parameter("grass_tex", load("res://assets/textures/grass004_color.jpg"))
+		terrain_mat.set_shader_parameter("grass_nrm", load("res://assets/textures/grass004_normal.jpg"))
+		terrain_mat.set_shader_parameter("rock_tex", load("res://assets/textures/rock035_color.jpg"))
+		terrain_mat.set_shader_parameter("rock_nrm", load("res://assets/textures/rock035_normal.jpg"))
+		terrain_mat.set_shader_parameter("use_detail", true)
 	terrain_mat.set_shader_parameter("pond_radius", d.pond_radius)
 	water_mat = ShaderMaterial.new()
 	water_mat.shader = WATER_SHADER
@@ -68,6 +75,7 @@ func rebuild() -> void:
 	_build_crystals()
 	_build_plots()
 	_build_grass()
+	_build_decor()
 	update_lock(false)
 	_last_vis = -1.0
 
@@ -95,6 +103,8 @@ func _process(_delta: float) -> void:
 		grass_mm.multimesh.visible_instance_count = int(_grass_total * (0.3 + 0.7 * v))
 	if flower_mm:
 		flower_mm.multimesh.visible_instance_count = int(_flower_total * smoothstep(0.25, 0.95, v))
+	for d in _decor:
+		d.node.visible = v >= d.threshold
 
 
 # --------------------------------------------------------------------------------------
@@ -310,6 +320,64 @@ func _make_mm(mesh: Mesh, mat: Material, xfs: Array[Transform3D], colors: bool, 
 	mmi.visibility_range_end = 110.0
 	content.add_child(mmi)
 	return mmi
+
+
+# --------------------------------------------------------------------------------------
+# Decoración con modelos de Poly Haven (CC0)
+# --------------------------------------------------------------------------------------
+
+const DECOR_ROCKS := ["moon_rock_02", "moon_rock_03", "moon_rock_06", "rock_09"]
+const DECOR_PLANTS := ["shrub_03", "shrub_sorrel_01", "calathea_orbifolia_01", "flower_empodium"]
+
+
+func _build_decor() -> void:
+	_decor.clear()
+	if not AssetLib.has("rock_09"):
+		return
+	var rng := RandomNumberGenerator.new()
+	rng.seed = def.noise_seed * 4241
+	var plots := layout.plot_positions(GameState.plot_count(def.id))
+	var crystal_pos := layout.crystal_positions()
+	var area := pow(layout.radius / 14.0, 2.0)
+	var n_rocks := int(9 * area)
+	var n_plants := int(22 * area)
+	var placed: Array[Vector2] = []
+	for i in n_rocks + n_plants:
+		var is_rock := i < n_rocks
+		for attempt in 25:
+			var a := rng.randf() * TAU
+			var band := rng.randf_range(0.72, 0.93) if is_rock else rng.randf_range(0.25, 0.9)
+			var p := Vector2(cos(a), sin(a)) * layout.edge_radius(a) * band
+			if layout.is_in_pond(p.x, p.y, 1.2):
+				continue
+			var ok := true
+			for q in plots:
+				if p.distance_to(q) < 2.0:
+					ok = false
+					break
+			for q in crystal_pos:
+				if p.distance_to(q) < 2.2:
+					ok = false
+			for q in placed:
+				if p.distance_to(q) < 1.6:
+					ok = false
+			if not ok:
+				continue
+			placed.append(p)
+			var id: String = DECOR_ROCKS[rng.randi() % DECOR_ROCKS.size()] if is_rock else DECOR_PLANTS[rng.randi() % DECOR_PLANTS.size()]
+			var h := rng.randf_range(0.5, 1.3) if is_rock else rng.randf_range(0.45, 1.1)
+			var node := AssetLib.instance(id, h)
+			if node == null:
+				break
+			content.add_child(node)
+			node.position = Vector3(p.x, layout.height_at(p.x, p.y) - (0.15 if is_rock else 0.02), p.y)
+			node.rotation.y = rng.randf() * TAU
+			if is_rock:
+				node.scale = Vector3(rng.randf_range(1.0, 1.8), 1.0, rng.randf_range(1.0, 1.8))
+			AssetLib.set_lod(node, 75.0, is_rock)
+			# Las rocas están desde el principio; la vegetación brota con la vitalidad.
+			_decor.append({"node": node, "threshold": 0.0 if is_rock else rng.randf_range(0.15, 0.85)})
+			break
 
 
 # --------------------------------------------------------------------------------------

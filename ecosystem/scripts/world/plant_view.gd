@@ -6,6 +6,7 @@ var data: Dictionary
 var def: PlantDef
 var model: Node3D
 var _geoms: Array[GeometryInstance3D] = []
+var _asset: Node3D
 var _fronds: Array[Node3D] = []
 var _drop: Node3D
 var _bloom: Node3D
@@ -118,6 +119,9 @@ func _apply() -> void:
 		# Las hojas se caen cuando la planta se marchita.
 		for f in _fronds:
 			f.rotation.x = f.get_meta("base_tilt", 0.0) + (1.0 - h) * 0.9
+		if _asset:
+			AssetLib.apply_health(_asset, h)
+			_asset.scale = Vector3(1.0 + (1.0 - h) * 0.15, lerpf(0.65, 1.0, h), 1.0 + (1.0 - h) * 0.15)
 	var pulse := 0.0
 	if data.mature:
 		pulse = 0.25 * float(data.bloom)
@@ -183,7 +187,22 @@ func _frond(parent: Node3D, mat: Material, yaw: float, tilt: float, length: floa
 	return pivot
 
 
+## Usa un modelo realista de Poly Haven si está disponible (si no, el modelo procedural).
+func _use_asset(id: String, height: float) -> bool:
+	if not AssetLib.has(id):
+		return false
+	_asset = AssetLib.instance(id, height)
+	model.add_child(_asset)
+	return true
+
+
 func _build_fern() -> void:
+	if _use_asset("fern_02", 0.85):
+		var bub := ProcMesh.glass(Color(0.7, 1.0, 1.0, 0.1), 0.6, 1.0, 1.6)
+		for i in 3:
+			var a := TAU * i / 3.0
+			ProcMesh.add(model, ProcMesh.sphere(0.08, 10), bub, Vector3(cos(a) * 0.4, 0.85 + i * 0.12, sin(a) * 0.4), Vector3.ONE, Vector3.ZERO, false)
+		return
 	var mat := ProcMesh.plant_mat(def.color, 0.05, 0.4)
 	for i in 8:
 		var yaw := TAU * i / 8.0 + randf_range(-0.2, 0.2)
@@ -198,6 +217,11 @@ func _build_fern() -> void:
 
 
 func _build_lily() -> void:
+	if _use_asset("anthurium_botany_01", 1.25):
+		# Halo prismático: la luz que descompone el lirio.
+		ProcMesh.add(model, ProcMesh.sphere(0.09, 12), ProcMesh.neon(def.accent, 2.5), Vector3(0, 1.3, 0), Vector3.ONE, Vector3.ZERO, false)
+		ProcMesh.add(model, ProcMesh.sphere(0.32, 18), ProcMesh.glass(Color(def.color, 0.08), 0.9, 1.0, 1.8), Vector3(0, 1.3, 0), Vector3.ONE, Vector3.ZERO, false)
+		return
 	var stem_mat := ProcMesh.plant_mat(Color(0.3, 0.75, 0.45), 0.0, 0.3)
 	ProcMesh.add(model, ProcMesh.cylinder(0.035, 0.05, 1.0, 8), stem_mat, Vector3(0, 0.5, 0))
 	_frond(model, stem_mat, 0.3, -0.7, 0.7)
@@ -216,6 +240,14 @@ func _build_lily() -> void:
 
 
 func _build_aurora() -> void:
+	if _use_asset("pachira_aquatica_01", 4.6):
+		var orb := ProcMesh.neon(def.accent, 3.0)
+		var rng := RandomNumberGenerator.new()
+		rng.seed = pid
+		for i in 8:
+			var a := TAU * i / 8.0 + 0.2
+			ProcMesh.add(model, ProcMesh.sphere(0.09, 8), orb, Vector3(cos(a) * 1.3, 2.8 + rng.randf_range(-0.4, 0.6), sin(a) * 1.3), Vector3.ONE, Vector3.ZERO, false)
+		return
 	var bark := ProcMesh.plant_mat(Color(0.92, 0.94, 0.98), 0.0, 0.1, 0.01)
 	ProcMesh.add(model, ProcMesh.cylinder(0.16, 0.32, 3.0, 12), bark, Vector3(0, 1.5, 0))
 	var leaves := ProcMesh.plant_mat(def.color, 0.15, 0.6, 0.015)

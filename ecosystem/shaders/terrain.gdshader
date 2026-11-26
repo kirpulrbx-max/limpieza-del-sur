@@ -12,6 +12,13 @@ uniform float water_level = -999.0;
 uniform vec2 pond_center = vec2(0.0);
 uniform float pond_radius = 0.0;
 uniform sampler2D noise_tex : repeat_enable, filter_linear_mipmap;
+// Texturas de detalle CC0 (ambientCG): se tiñen con la paleta estilizada de la isla.
+uniform bool use_detail = false;
+uniform sampler2D grass_tex : source_color, repeat_enable, filter_linear_mipmap_anisotropic;
+uniform sampler2D grass_nrm : hint_normal, repeat_enable, filter_linear_mipmap_anisotropic;
+uniform sampler2D rock_tex : source_color, repeat_enable, filter_linear_mipmap_anisotropic;
+uniform sampler2D rock_nrm : hint_normal, repeat_enable, filter_linear_mipmap_anisotropic;
+uniform float detail_scale = 0.35;
 
 varying vec3 wpos;
 varying vec3 wnorm;
@@ -37,6 +44,19 @@ void fragment() {
 	col = mix(col, sand_color * (0.9 + 0.15 * n2), sand);
 	// Vetas luminosas en la base rocosa: tecnología y naturaleza fusionadas.
 	float vein = smoothstep(0.93, 1.0, sin(lpos.y * 1.7 + n * 9.0)) * (1.0 - up);
+	if (use_detail) {
+		vec2 guv = wpos.xz * detail_scale;
+		// Proyección lateral para la roca (evita estiramientos en los acantilados).
+		vec2 ruv = (abs(wnorm.x) > abs(wnorm.z) ? wpos.zy : wpos.xy) * detail_scale * 0.6;
+		vec3 g = texture(grass_tex, guv).rgb;
+		vec3 r = texture(rock_tex, ruv).rgb;
+		float gl = dot(g, vec3(0.333)) / 0.3;
+		float rl = dot(r, vec3(0.333)) / 0.45;
+		col *= mix(mix(0.6 + 0.4 * rl, 1.0, up), mix(0.55 + 0.45 * gl, 1.0, sand), up);
+		vec3 nm = mix(texture(rock_nrm, ruv).rgb, texture(grass_nrm, guv).rgb, up);
+		NORMAL_MAP = nm;
+		NORMAL_MAP_DEPTH = 0.8;
+	}
 	ALBEDO = col;
 	ROUGHNESS = mix(0.45, 0.82, up);
 	SPECULAR = 0.45;

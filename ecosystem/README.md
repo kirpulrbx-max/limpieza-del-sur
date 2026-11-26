@@ -21,8 +21,9 @@ plantas se marchitan, la fauna desaparece y la producción cae.
    godot --path ecosystem
    ```
 
-No hay dependencias externas: toda la geometría, los materiales, los iconos y el audio se
-generan por código.
+No hay dependencias de código. Las plantas, la decoración y el detalle del terreno usan
+modelos y texturas CC0 de Poly Haven y ambientCG (ver [assets/CREDITOS.md](assets/CREDITOS.md));
+el resto (islas, estructuras, efectos, iconos y audio) se genera por código.
 
 ## Controles
 
